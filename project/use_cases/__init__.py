@@ -1,0 +1,1 @@
+from .recognize_public_figures import *
