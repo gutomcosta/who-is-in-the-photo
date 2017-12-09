@@ -10,7 +10,7 @@ class Photo(object):
         faces = []
         face_locations = face_recognition.face_locations(self.image)
         for (top, right,bottom, left) in face_locations:
-            face = Face(top, right, bottom, left)
+            face = Face(self.image,top, right, bottom, left)
             faces.append(face)
         
         return faces

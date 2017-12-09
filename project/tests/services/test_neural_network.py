@@ -12,14 +12,15 @@ from repositories import PhotoRepository
 class NeuralNetworkTest(unittest.TestCase):
 
     def setUp(self):
-        self.neural_network = NeuralNetwork()
+        self.neural_network = NeuralNetwork(dataset_train_path='../../faces/train')
         self.photo_repository = PhotoRepository()
         self.path = os.getcwd()
-        self.path +='/support/obama.jpeg'
-        self.face = self.photo_repository.get_photo_from(self.path)
+        self.path +='/support/angelina.jpeg'
+        self.photo = self.photo_repository.get_photo_from(self.path)
 
 
     def test_it_show_predict_classes_with_confidence(self):
-        persons = self.neural_network.predict(self.face)
-        self.assertTrue(persons[0].is_known())
-        self.assertEqual('Barack Obama', persons[0].name)
+        faces = self.photo.get_faces()
+        prediction = self.neural_network.predict(faces[0])
+        self.assertIsNotNone(prediction)
+        self.assertIn('Barack Obama', prediction['predicted_class'])

@@ -4,23 +4,25 @@ from keras.layers import Conv2D, MaxPooling2D
 from keras.optimizers import SGD, RMSprop, adam
 from keras.callbacks import TensorBoard
 from glob import glob 
+from PIL import Image
+from keras.preprocessing import image
+
+import numpy as np
 
 class NeuralNetwork(object):
 
     def __init__(self, weights_path=None, dataset_train_path=None):
         self.model = self._build_network()
         self.train_path = dataset_train_path or '../faces/train'
-        self.weights = weights_path or 'weights/weights.custom.model.hdf5'
+        self.weights = weights_path or '../weights/weights.custom.model.hdf5'
         # extract person name from full path
-        self.person_names = [item[15:-1] for item in sorted(glob(self.train_path+"/*/"))]
+        self.person_names = [item[12:-1] for item in sorted(glob(self.train_path+"/*/"))]
     
     def predict(self, face):
         self.model.load_weights(self.weights)
-        # face.image
-        # resize image
-        # path_to_tensor
-        # model.predict()
-        return []
+        img = face.image()
+        img = self._image_to_tensor(img)
+        return self._predict(img)
 
     def _build_network(self):
         model = Sequential()
@@ -43,3 +45,20 @@ class NeuralNetwork(object):
         model.add(Dropout(0.5))
         model.add(Dense(83, activation='softmax'))
         return model
+
+    def _image_to_tensor(self, img):
+        img = Image.fromarray(img)
+        img = img.resize((100,100), Image.ANTIALIAS)
+        img_array = image.img_to_array(img)
+        return np.expand_dims(img_array, axis=0)
+
+    def _predict(self, img):
+        import ipdb; ipdb.set_trace()
+        predictions = self.model.predict(img)
+        index = np.where(predictions==1)
+        class_name = ''
+        if index:
+            index = index[1][0]
+            class_name = self.person_names[index]
+        return {'predicted_class':class_name, 'confidence': None } 
+
