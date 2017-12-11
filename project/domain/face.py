@@ -1,3 +1,5 @@
+from PIL import Image
+
 class Face(object):
     def __init__(self, image, top, right, bottom, left):
         self.top = top
@@ -7,10 +9,27 @@ class Face(object):
         self.original_image = image
 
     
-    def image(self):
-        # top = self.top - 30 > self.ori
+    def image(self):        
+        face = self.original_image[self.top:self.bottom, self.left:self.right]
+        face_image = Image.fromarray(face)
+        face_image.save('face_extracted.jpeg')
+        return face
         
-        return self.original_image[self.top-30:self.bottom+30, self.left-30:self.right+30]
-        # return self.original_image[self.top:self.bottom, self.left:self.right]
-        
+    
+    def expanded_image(self):
+        top, left, bottom, right = self.expand_face_image()
+        face =self.original_image[top:bottom, left:right]
+        face_image = Image.fromarray(face)
+        face_image.save('face_expanded.jpeg')
+        return face
 
+    def expand_face_image(self):
+        img = Image.fromarray(self.original_image)
+        height_factor = int(img.height * 0.15)    
+        width_factor  = int(img.width * 0.15)
+        top     = self.top    if (self.top - height_factor) < 0    else self.top - height_factor
+        left    = self.left   if (self.left - width_factor) < 0     else self.left - width_factor
+        bottom  = self.bottom if (self.bottom + height_factor) > img.height else  self.bottom + height_factor
+        right   = self.right  if (self.right + width_factor) > img.width    else self.right + width_factor 
+
+        return top, left, bottom, right

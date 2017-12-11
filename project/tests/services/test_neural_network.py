@@ -15,12 +15,14 @@ class NeuralNetworkTest(unittest.TestCase):
         self.neural_network = NeuralNetwork(dataset_train_path='../../faces/train')
         self.photo_repository = PhotoRepository()
         self.path = os.getcwd()
-        self.path +='/support/angelina.jpeg'
+        self.path +='/support/obama.jpeg'
         self.photo = self.photo_repository.get_photo_from(self.path)
 
 
-    def test_it_show_predict_classes_with_confidence(self):
+    def test_it_show_predict_classes(self):
         faces = self.photo.get_faces()
-        prediction = self.neural_network.predict(faces[0])
+        for face in faces:
+            prediction = self.neural_network.predict(face.expanded_image())
+            print(prediction['predicted_class'])    
         self.assertIsNotNone(prediction)
         self.assertIn('Barack Obama', prediction['predicted_class'])

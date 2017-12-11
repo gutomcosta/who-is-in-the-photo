@@ -18,9 +18,8 @@ class NeuralNetwork(object):
         # extract person name from full path
         self.person_names = [item[12:-1] for item in sorted(glob(self.train_path+"/*/"))]
     
-    def predict(self, face):
+    def predict(self, img):
         self.model.load_weights(self.weights)
-        img = face.image()
         img = self._image_to_tensor(img)
         return self._predict(img)
 
@@ -54,11 +53,10 @@ class NeuralNetwork(object):
 
     def _predict(self, img):
         import ipdb; ipdb.set_trace()
-        predictions = self.model.predict(img)
-        index = np.where(predictions==1)
+        index = self.model.predict_classes(img)
         class_name = ''
         if index:
-            index = index[1][0]
+            index = index[0]
             class_name = self.person_names[index]
         return {'predicted_class':class_name, 'confidence': None } 
 

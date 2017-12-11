@@ -7,8 +7,10 @@ class PersonIdentifier(object):
     
     def identify(self,faces):
         persons = []
+        expanded_face = len(faces) == 1
         for face in faces:
-            prediction = self.neural_network.predict(face)
+            img = face.expanded_image() if expanded_face else face.image()
+            prediction = self.neural_network.predict(img)
             person = Person(prediction, face)
             persons.append(person)
         return persons
