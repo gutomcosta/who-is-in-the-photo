@@ -1,6 +1,7 @@
 from flask import Flask, request, render_template
 from unipath import Path
 from use_cases import RecognizePublicFigures
+from services import FileSystem
 
 BASEDIR = Path(__file__).parent
 
@@ -13,11 +14,11 @@ def index():
 @app.route('/upload', methods=['GET', 'POST'])
 def upload():
     photo = request.files.get('photo')
-    photo.save(BASEDIR.child('static', 'upload',photo.filename))
-    image_path = 'static/upload/{}'.format(photo.filename)
-    converted_path = 'static/upload/converted/{}'.format(photo.filename)
-    path = 'web/{}'.format(image_path)
+    file_system = FileSystem(BASEDIR)
+    file_system.save_file(photo)
+    image_path = file_system.upload_path_of(photo)
+    identified_path = file_system.identified_path_of(photo)
     uc = RecognizePublicFigures()
-    uc.execute(path)
-    return '<img src="{}">'.format(converted_path)
+    uc.execute(image_path)
+    return render_template('index.html', identifieds=file_system.last_identified_paths())
 
