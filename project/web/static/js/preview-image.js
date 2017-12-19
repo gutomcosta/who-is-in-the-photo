@@ -17,28 +17,28 @@ function noPreview() {
   
     $('#max-size').html((maxsize/1024).toFixed(2));
   
-    $('#upload-image-form').on('submit', function(e) {
+    // $('#upload-image-form').on('submit', function(e) {
   
-      e.preventDefault();
+    //   e.preventDefault();
   
-      $('#message').empty();
-      $('#loading').show();
+    //   $('#message').empty();
+    //   $('#loading').show();
   
-      $.ajax({
-        url: "upload-image.php",
-        type: "POST",
-        data: new FormData(this),
-        contentType: false,
-        cache: false,
-        processData: false,
-        success: function(data)
-        {
-          $('#loading').hide();
-          $('#message').html(data);
-        }
-      });
+    //   $.ajax({
+    //     url: "upload-image.php",
+    //     type: "POST",
+    //     data: new FormData(this),
+    //     contentType: false,
+    //     cache: false,
+    //     processData: false,
+    //     success: function(data)
+    //     {
+    //       $('#loading').hide();
+    //       $('#message').html(data);
+    //     }
+    //   });
   
-    });
+    // });
   
     $('#file').change(function() {
   
