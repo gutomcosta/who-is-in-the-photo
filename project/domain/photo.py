@@ -10,13 +10,14 @@ class Photo(object):
         self.path = path
 
     def get_faces(self):
-        haar_cascade_path = '/usr/share/opencv/haarcascades/haarcascade_frontalface_default.xml'
-        detector= cv2.CascadeClassifier(haar_cascade_path);
+        face_haarcascade_path = 'haarcascades/haarcascade_frontalface_default.xml'
+        detector= cv2.CascadeClassifier(face_haarcascade_path)
         detected = []
         faces = detector.detectMultiScale(self.image)
         for (x,y,w,h) in faces:
             face = Face(self.image, y,x+w, y+h,x)
-            detected.append(face)
+            if face.is_it_a_face():
+                detected.append(face)
         return detected
 
     def highlight(self, persons):

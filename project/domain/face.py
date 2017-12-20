@@ -1,4 +1,5 @@
 from PIL import Image
+import cv2
 
 class Face(object):
     def __init__(self, image, top, right, bottom, left):
@@ -9,6 +10,16 @@ class Face(object):
         self.original_image = image
 
     
+    def is_it_a_face(self):
+        eye_haarcascade_path = 'haarcascades/haarcascade_eye.xml'
+        face = self.image()
+        detector= cv2.CascadeClassifier(eye_haarcascade_path)
+        eyes = detector.detectMultiScale(face)
+        if len(eyes) > 0:
+            return True
+        return False
+        
+
     def image(self):        
         face = self.original_image[self.top:self.bottom, self.left:self.right]
         face_image = Image.fromarray(face)

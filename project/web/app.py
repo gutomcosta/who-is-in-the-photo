@@ -18,8 +18,13 @@ def upload():
     file_system.save_file(photo)
     image_path = file_system.upload_path_of(photo)
     identified_path = file_system.identified_path_of(photo)
-    uc = RecognizePublicFigures()
-    uc.execute(image_path)
+    error = ''
+    try:
+        uc = RecognizePublicFigures()
+        uc.execute(image_path)
+    except ValueError as e:
+        error = e.message
+    
     file_system.remove_upload_files()
-    return render_template('index.html', identifieds=file_system.last_identified_paths())
+    return render_template('index.html', identifieds=file_system.last_identified_paths(), message=error)
 
