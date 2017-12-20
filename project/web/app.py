@@ -20,5 +20,6 @@ def upload():
     identified_path = file_system.identified_path_of(photo)
     uc = RecognizePublicFigures()
     uc.execute(image_path)
+    file_system.remove_upload_files()
     return render_template('index.html', identifieds=file_system.last_identified_paths())
 
