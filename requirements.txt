@@ -11,7 +11,6 @@ click==6.7
 configparser==3.5.0
 cycler==0.10.0
 decorator==4.1.2
-dlib==19.7.0
 entrypoints==0.2.3
 enum34==1.1.6
 face-recognition==1.0.0
