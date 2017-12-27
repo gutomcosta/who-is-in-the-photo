@@ -81,7 +81,11 @@ celerybeat-schedule
 # SageMath parsed files
 *.sage.py
 
-web/static/upload
+
+#ignore medias
+web/static/media/upload/*.*
+web/static/media/identified/*.*
+
 
 # Environments
 .env
