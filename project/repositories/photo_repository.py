@@ -1,6 +1,7 @@
 import face_recognition
 from domain import Photo
 from PIL import Image
+import random
 
 class PhotoRepository(object):
     
@@ -16,7 +17,10 @@ class PhotoRepository(object):
     
     def save(self, image, filename):
         try:
-            path = self.image_store_path+'/'+filename
+            code = random.randint(1,1000)
+            names = filename.split('.')
+            name  = '{}{}.{}'.format(names[0],str(code),names[1])
+            path = self.image_store_path+'/'+name
             image = image.resize((300,300), Image.ANTIALIAS)
             image.save(path)
         except IOError as e:
