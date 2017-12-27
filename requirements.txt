@@ -13,8 +13,6 @@ cycler==0.10.0
 decorator==4.1.2
 entrypoints==0.2.3
 enum34==1.1.6
-face-recognition==1.0.0
-face-recognition-models==0.3.0
 Flask==0.12.2
 funcsigs==1.0.2
 functools32==3.2.3.post2
