@@ -22,6 +22,7 @@ class Face(object):
 
     def image(self):        
         face = self.original_image[self.top:self.bottom, self.left:self.right]
+        face = cv2.cvtColor(face, cv2.COLOR_BGR2GRAY)
         face_image = Image.fromarray(face)
         face_image.save('face_extracted.jpeg')
         return face
