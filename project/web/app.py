@@ -28,3 +28,6 @@ def upload():
     file_system.remove_upload_files()
     return render_template('index.html', identifieds=file_system.last_identified_paths(), message=error)
 
+
+if __name__ == "__main__":
+    app.run(host='0.0.0.0')
