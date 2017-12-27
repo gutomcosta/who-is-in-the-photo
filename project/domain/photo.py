@@ -13,7 +13,8 @@ class Photo(object):
         face_haarcascade_path = 'haarcascades/haarcascade_frontalface_default.xml'
         detector= cv2.CascadeClassifier(face_haarcascade_path)
         detected = []
-        faces = detector.detectMultiScale(self.image)
+        gray = cv2.cvtColor(self.image, cv2.COLOR_BGR2GRAY)
+        faces = detector.detectMultiScale(gray)
         for (x,y,w,h) in faces:
             face = Face(self.image, y,x+w, y+h,x)
             if face.is_it_a_face():
@@ -24,7 +25,7 @@ class Photo(object):
         img = self.image.copy()
         for person in persons:
             cv2.rectangle(img, (person.face.left, person.face.top), (person.face.right, person.face.bottom), (0,0,255),2)
-            cv2.putText(img, person.get_name(), (person.face.left-10,person.face.bottom+10), cv2.FONT_HERSHEY_PLAIN, 1.1, (0, 220, 0), 2)
+            cv2.putText(img, person.get_name(), (person.face.left-10,person.face.bottom+20), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
         return Image.fromarray(img)
 
 
