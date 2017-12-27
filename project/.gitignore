@@ -83,8 +83,11 @@ celerybeat-schedule
 
 
 #ignore medias
-web/static/media/upload/*.*
-web/static/media/identified/*.*
+web/static/media/upload/*.jpeg
+web/static/media/upload/*.jpg
+
+web/static/media/identified/*.jpeg
+web/static/media/identified/*.jpg
 
 
 # Environments
