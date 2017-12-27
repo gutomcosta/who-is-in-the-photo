@@ -11,7 +11,7 @@ class RecognizePublicFigures(object):
         photo = self.photo_repository.get_photo_from(path)
         faces = photo.get_faces()
         if not faces:
-            raise ValueError('There is no faces in the image. Are you sure the image contains human faces?')
+            raise ValueError('It seems that are no faces in the image or the image quality is not good. Are you sure the image contains human faces? Can you try other image?')
         persons = self.person_identifier.identify(faces)
         image = photo.highlight(persons)
         names = path.split('/')
