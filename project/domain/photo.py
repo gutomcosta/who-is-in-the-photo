@@ -1,4 +1,3 @@
-import face_recognition
 from face import Face
 import cv2
 from PIL import Image
