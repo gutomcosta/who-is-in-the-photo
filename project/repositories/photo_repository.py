@@ -1,7 +1,8 @@
-import face_recognition
+# import face_recognition
 from domain import Photo
 from PIL import Image
 import random
+import cv2
 
 class PhotoRepository(object):
     
@@ -10,7 +11,8 @@ class PhotoRepository(object):
 
     def get_photo_from(self,path):
         try:
-            image = face_recognition.load_image_file(path)
+            # image = face_recognition.load_image_file(path)
+            image = self._load_image(path)
             return Photo(image, path)
         except IOError:
             raise ValueError("Invalid path to image {}".format(path))
@@ -25,3 +27,12 @@ class PhotoRepository(object):
             image.save(path)
         except IOError as e:
             raise ValueError("Cannot save image in the disk {}".format(e.message))
+        
+    
+    def _load_image(self,path):
+        # opencv uses bgr color scheme, we need to convert to rgb
+        image = cv2.imread(path, 3)
+        b,g,r = cv2.split(image)           
+        return cv2.merge([r,g,b]) 
+
+
