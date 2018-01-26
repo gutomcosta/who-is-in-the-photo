@@ -28,7 +28,7 @@ To train the models, this project uses the [PubFig83](http://vision.seas.harvard
 
 https://www.dropbox.com/s/15g5lngya9ivqom/faces.zip?dl=0  
 
-After download, you need to extract the files into a project folder. It can stay at the same level of `exploratory-analysis/` and `project/`.
+After download, you need to extract the files into a face folder. It must stay at the same level of `exploratory-analysis/` and `project/`.
 
 ## Exploratory analysis
 
