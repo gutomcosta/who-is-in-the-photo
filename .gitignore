@@ -117,6 +117,6 @@ Blog
 faces/
 log/
 logs/
-saved_models/
-
+*.hdf5
+*.jpg
 *.zip
