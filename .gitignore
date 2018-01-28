@@ -118,9 +118,9 @@ faces/
 log/
 logs/
 saved_models/
-
 *.zip
 exploratory-analysis/00610PARCH.svg
 *.jpg
 *.jpeg
+*.hdf5
 exploratory-analysis/haarcascade_frontalface_default.xml
